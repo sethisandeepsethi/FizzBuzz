@@ -104,14 +104,12 @@ public class StringPractice {
     }
 
     public void permutationOf(String str, String prefix) {
-        System.out.printf("prefix: %s, ", prefix);
         if (str.length() == 0) {
-            //System.out.println(prefix);
+            System.out.println(prefix);
         } else {
             for (int i = 0; i < str.length(); i++) {
                 String rem1 = str.substring(0,i);
                 String rem2 = str.substring(i+1);
-                System.out.printf(" str: %s, rem1: %s , rem2: %s%n",str, rem1, rem2);
                 String rem = rem1 + rem2;
                 permutationOf(rem, prefix + str.charAt(i));
             }
@@ -139,13 +137,10 @@ public class StringPractice {
     public boolean isPalindrome2(String input) {
         input = input.toLowerCase().trim().replaceAll(" ", "");
         int inputLength = input.length();
-        System.out.printf("Length of %s is %d%n",input, input.length());
-
         for( int i = 0; i < inputLength; i++) {
             if( input.charAt(i) != input.charAt(inputLength-1-i) )
                 return  false;
         }
-
         return true;
     }
 
