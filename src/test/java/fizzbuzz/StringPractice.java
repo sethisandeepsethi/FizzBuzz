@@ -85,4 +85,73 @@ public class StringPractice {
         });
     }
 
+    @Test(description = "count the number of words in a string")
+    public void testWorldCount(){
+        Assert.assertEquals(getWorldCount("Welcome to Java World"), 4);
+    }
+
+    private int getWorldCount(String input){
+        String[] inputStrArr = input.split(" ");
+        return inputStrArr.length;
+    }
+
+    @Test(description = "find all permutations of a given string")
+    public void printAllPermutations(){
+        String input = "abcd"; //abcd
+
+        permutationOf(input,"");
+
+    }
+
+    public void permutationOf(String str, String prefix) {
+        System.out.printf("prefix: %s, ", prefix);
+        if (str.length() == 0) {
+            //System.out.println(prefix);
+        } else {
+            for (int i = 0; i < str.length(); i++) {
+                String rem1 = str.substring(0,i);
+                String rem2 = str.substring(i+1);
+                System.out.printf(" str: %s, rem1: %s , rem2: %s%n",str, rem1, rem2);
+                String rem = rem1 + rem2;
+                permutationOf(rem, prefix + str.charAt(i));
+            }
+        }
+    }
+
+    @Test(description = "find if a string is Palindrome")
+    public void testPalindrome(){
+        Assert.assertTrue(isPalindrome("madam"));
+        Assert.assertTrue(isPalindrome("racecar"));
+        Assert.assertTrue(isPalindrome("Was it a car or a cat I saw"));
+
+        Assert.assertFalse(isPalindrome("sandeep"));
+    }
+
+    private boolean isPalindrome(String input) {
+        input = input.toLowerCase().replaceAll(" ", "");
+        String output = "";
+        for (int i = 0; i < input.length(); i++) {
+            output = output + input.charAt(input.length()-1-i);
+        }
+        return input.equals(output);
+    }
+
+    public boolean isPalindrome2(String input) {
+        input = input.toLowerCase().trim().replaceAll(" ", "");
+        int inputLength = input.length();
+        System.out.printf("Length of %s is %d%n",input, input.length());
+
+        for( int i = 0; i < inputLength; i++) {
+            if( input.charAt(i) != input.charAt(inputLength-1-i) )
+                return  false;
+        }
+
+        return true;
+    }
+
+
+
+
+
+
 }

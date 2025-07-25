@@ -177,27 +177,4 @@ public class NumberPractice {
         return true;
     }
 
-    @Test(description = "test if a string is Palindrome")
-    public void testPalindrome(){
-        System.out.println("String Palindrome check:");
-        Assert.assertTrue(isPalindrome("madam"));
-        Assert.assertTrue(isPalindrome("racecar"));
-        Assert.assertTrue(isPalindrome("Was it a car or a cat I saw"));
-
-        Assert.assertFalse(isPalindrome("sandeep"));
-    }
-
-    public boolean isPalindrome(String input) {
-        input = input.toLowerCase().trim().replaceAll(" ", "");
-        int inputLength = input.length();
-        System.out.printf("Length of %s is %d%n",input, input.length());
-
-        for( int i = 0; i < inputLength; i++) {
-            if( input.charAt(i) != input.charAt(inputLength-1-i) )
-                return  false;
-        }
-
-        return true;
-    }
-
 }
