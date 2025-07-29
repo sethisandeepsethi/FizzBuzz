@@ -144,9 +144,19 @@ public class StringPractice {
         return true;
     }
 
+    @Test(description = "determine if Two Strings are Anagrams")
+    public void testAnagram(){
+        Assert.assertTrue(isAnagram("listen", "silent"));
+    }
 
+    private boolean isAnagram(String str1, String str2) {
+        char[] arrChar1 = str1.toCharArray();
+        char[] arrChar2 = str2.toCharArray();
+        Arrays.sort(arrChar1);
+        Arrays.sort(arrChar2);
 
-
+        return Arrays.equals(arrChar1, arrChar2);
+    }
 
 
 }
