@@ -3,9 +3,7 @@ package fizzbuzz;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StringPractice {
 
@@ -146,10 +144,10 @@ public class StringPractice {
 
     @Test(description = "determine if Two Strings are Anagrams")
     public void testAnagram(){
-        Assert.assertTrue(isAnagram("listen", "silent"));
+        Assert.assertTrue(areAnagrams("listen", "silent"));
     }
 
-    private boolean isAnagram(String str1, String str2) {
+    private boolean areAnagrams(String str1, String str2) {
         char[] arrChar1 = str1.toCharArray();
         char[] arrChar2 = str2.toCharArray();
         Arrays.sort(arrChar1);
@@ -157,6 +155,75 @@ public class StringPractice {
 
         return Arrays.equals(arrChar1, arrChar2);
     }
+
+    @Test(description = "Count Vowels and Consonants in a given string")
+    public void testCountOfVowelsAndConsonents(){
+        Assert.assertEquals(getVowelCount("Hello world"), 3);
+        Assert.assertEquals( "Hello world".replaceAll(" ", "").length() - getVowelCount("Hello world"), 7);
+    }
+
+    private int getVowelCount(String input){
+        input = input.toLowerCase();
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+           char c = input.charAt(i);
+           if( c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ){
+                count++;
+           }
+        }
+        return count;
+    }
+
+    @Test(description = "Print unique characters")
+    public void printUniqueChars(){
+        String str = "Java Automation";
+        HashMap<Character, Integer> charCountMap = new HashMap<>();
+
+        // Count occurrences of each character
+        for (char c : str.toCharArray()) {
+            charCountMap.put(c, charCountMap.getOrDefault(c, 0) + 1);
+        }
+
+        System.out.print("Unique characters: ");
+        // Print characters with count 1 (unique)
+        for (char c : str.toCharArray()) {
+            if (charCountMap.get(c) == 1) {
+                System.out.print(c + " ");
+            }
+        }
+    }
+    //Output: Unique characters: J v   A u m i n
+
+    @Test(description = "Print unique characters")
+    public void printUniqueChars2(){
+        String str = "Java Automation";
+        int[] charCount = new int[256]; // For all ASCII characters
+
+        // Count occurrences of each character
+        for (int i = 0; i < str.length(); i++) {
+            charCount[str.charAt(i)]++;
+        }
+
+        System.out.print("Unique characters: ");
+        // Print characters that appear only once (unique)
+        for (int i = 0; i < str.length(); i++) {
+            if (charCount[str.charAt(i)] == 1) {
+                System.out.print(str.charAt(i) + " ");
+            }
+        }
+    }
+    //Output: Unique characters: J v   A u m i n
+
+
+
+
+
+
+
+
+
+
 
 
 }
