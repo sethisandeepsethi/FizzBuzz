@@ -18,9 +18,9 @@ public class StringPractice {
         String output = "";
         int strLength = input.length();
         for (int i = 0; i < strLength; i++) {
-            output = output + input.charAt(strLength-i-1);
+            // output = output + input.charAt(strLength-i-1);
             // OR
-            // output = input.charAt(i) + output;
+             output = input.charAt(i) + output;
         }
         return output;
     }
@@ -215,15 +215,149 @@ public class StringPractice {
     }
     //Output: Unique characters: J v   A u m i n
 
+    @Test(description = "Remove space from a string")
+    public void testSpaceRemoval(){
+        Assert.assertEquals(removeSpaces("Hello world"), "Helloworld");
+        Assert.assertEquals(removeSpaces("Welcome to Java World"), "WelcometoJavaWorld");
+    }
 
+    private String removeSpaces(String input){
+        String output = "";
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if( c != ' ' )
+                output = output + c;
+        }
+        return output;
+    }
 
+    @Test(description = "print each letter twice from a given string")
+    public void printTwice(){
+        String input = "hello";
+        String output = "";
 
+         for (int i = 0; i < input.length(); i++) {
+             char currChar = input.charAt(i);
+             output = output + currChar +currChar;
+         }
 
+         System.out.println(output);
+     }
 
+     @Test(description = "swap two string without using 3rd variable")
+    public void swapStr(){
+        String str1 = "hello";
+        String str2 = "world";
 
+         System.out.printf("Before swapping: str1=%s , str2=%s%n", str1, str2);
+         str1 = str1 + str2;
+         str2 = str1.replaceAll(str2, "");
+         str1 = str1.replaceAll(str2, "");
+         System.out.printf("After swapping: str1=%s , str2=%s%n", str1, str2);
+     }
 
+    public void swapStr2() {
+        String str1 = "hello";
+        String str2 = "world";
 
+        System.out.printf("Before swapping: str1=%s , str2=%s%n", str1, str2);
 
+        str1 = str1 + str2;
+        str2 = str1.substring(0, str1.length() - str2.length());  // Extract the initial part (original str1) from the concatenated string
+        str1 = str1.substring(str2.length());    // Extract the remaining part (original str2) from the concatenated string
+        System.out.printf("After swapping: str1=%s , str2=%s%n", str1, str2);
+    }
 
+    @Test(description = "gives Output: a2b2c3d2 for the Input String Str = “aabbcccdd”")
+    public void testCharCount(){
+        Assert.assertEquals(getCharCount("aabbcccdd"), "a2b2c3d2");
+        Assert.assertEquals(getCharCount("aabbcccdddaa"), "a2b2c3d3a2");
+    }
+
+    private String getCharCount(String input) {
+        String output = "";
+        int continousCounter = 1;
+        output = output + input.charAt(0);
+
+        for (int i = 1; i < input.length(); i++) {
+            if( input.charAt(i) == input.charAt(i-1))
+                continousCounter++;
+            else {
+                output = output + continousCounter + input.charAt(i);
+                continousCounter = 1;
+            }
+        }
+
+        return output+continousCounter;
+    }
+
+    @Test(description = "gives two Output: 'abcde', 'ABCDE' for the Input String Str = 'aABCbcEDed'")
+    public void testSeparateChars(){
+        String input = "aABCbcEDed";
+        String lcStr = "";
+        String ucStr = "";
+
+        for (int i = 0; i < input.length(); i++) {
+            char currChar = input.charAt(i);
+            if(currChar >= 'a' && currChar <= 'z')
+                lcStr = lcStr + currChar;
+            else if (currChar >= 'A' && currChar <= 'Z')
+                ucStr = ucStr + currChar;
+            else
+                continue;
+        }
+
+        System.out.printf("%s%n%s", lcStr, ucStr);
+
+    }
+
+    @Test(description = "gives two Output: 'abcde', 'ABCDE' for the Input String Str = 'aABCbcEDed'")
+    public void testSeparateChars2(){
+        String input = "aABCbcEDed";
+        StringBuilder lowerCase = new StringBuilder();
+        StringBuilder upperCase = new StringBuilder();
+
+        for(char ch : input.toCharArray())
+        {
+            if(Character.isLowerCase(ch))
+                lowerCase.append(ch);
+            else
+                upperCase.append(ch);
+
+        }
+
+        System.out.printf("%s%n%s", lowerCase, upperCase);
+
+    }
+
+    @Test(description = "find the length of longest substring without repeating characters")
+    public void testLengthOfLongestSubstring() {
+        Assert.assertEquals(lengthOfLongestSubstring("abcabcbb"),3);
+        Assert.assertEquals(lengthOfLongestSubstring("bbbbb"),1);
+        Assert.assertEquals(lengthOfLongestSubstring("pwwkew"),3);
+        Assert.assertEquals(lengthOfLongestSubstring(""),0);
+    }
+
+    private int lengthOfLongestSubstring(String input){
+        int maxLength = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+
+        for (int right = 0; right < input.length(); right++) {
+            char c = input.charAt(right);
+
+            // If the character is already in the map, shift the left pointer
+            if (map.containsKey(c)) {
+                left = Math.max(map.get(c) + 1, left);
+            }
+
+            // Update character's last seen index
+            map.put(c, right);
+
+            // Update max length if needed
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+        return maxLength;
+    }
 
 }
